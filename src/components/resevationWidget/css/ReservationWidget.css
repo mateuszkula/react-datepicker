@@ -1,0 +1,10 @@
+.ReservationWidget {
+  width: 400px;
+  height: 500px;
+  border: 1px darkgray solid;
+  padding: 15px;
+  padding-top: 20px;
+  display: flex;
+  flex-flow: column;
+}
+
