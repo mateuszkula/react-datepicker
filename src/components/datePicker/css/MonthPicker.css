@@ -1,0 +1,19 @@
+.MonthPicker {
+  width: 90%;
+  display: flex;
+  justify-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0px auto;
+}
+
+.MonthPicker_button {
+  flex-grow: 1;
+}
+
+.MonthPicker_month {
+  font-size: 0.8em;
+  font-weight: 800;
+  flex-grow: 4;
+  text-align: center;
+}
