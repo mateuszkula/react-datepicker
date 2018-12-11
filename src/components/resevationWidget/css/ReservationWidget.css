@@ -2,9 +2,43 @@
   width: 400px;
   height: 500px;
   border: 1px darkgray solid;
-  padding: 15px;
+  padding: 35px;
   padding-top: 20px;
+  margin-top: 50px;
+  margin-left: 30px;
   display: flex;
   flex-flow: column;
+  box-sizing: border-box;
+
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, sans-serif;
 }
 
+.ReservationWidget_hr {
+  display: block;
+  height: 2px;
+  border: 0;
+  border-top: 1px solid lightgray;
+  margin: 1em 0;
+}
+
+.ReservationWidget_dates {
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.ReservationWidget_input {
+  margin: 10px 0px;
+  border-radius: 3px;
+  height: 40px;
+  border: 1px solid lightgray;
+  display: flex;
+  color: darkgray;
+  justify-content: space-between;
+}
+
+.ReservationWidget_separator {
+  border-left: 1px solid lightgray; 
+  margin: 5px 0px;
+  height: 30px;
+}

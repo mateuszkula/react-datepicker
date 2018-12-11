@@ -1,0 +1,13 @@
+.DateInput {
+  margin: 3px;
+  padding: 5px;
+  font-size: 1.5em;
+  width: 55%;
+  border: 1px white solid;
+  color: lightgray;
+}
+
+.DateInput_expanded {
+  color: darkslategrey;
+  background-color: lightblue;
+}

@@ -1,0 +1,26 @@
+.Rating {
+  padding: 10px 0px;
+  font-size: 0.8em;
+}
+
+.Rating_stars {
+  color: lightgray;
+  padding: 0px;
+  position: relative;
+  width: 65px;
+  display: inline-block;
+}
+
+.Rating_stars_color {
+  color: darkslategrey;
+  position: absolute;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+}
+
+.Rating_stars_bottom {
+  padding: 0;
+  display: block;
+  z-index: 0;
+}
