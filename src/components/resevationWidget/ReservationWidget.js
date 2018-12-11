@@ -13,9 +13,7 @@ class ReservationWidget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        expanded: "",
-      checkinExpanded: false,
-      checkoutExpanded: false,
+      expanded: "",
       checkinDate: "",
       checkoutDate: ""
     };
@@ -25,19 +23,19 @@ class ReservationWidget extends Component {
   }
 
   clicked(field) {
-    const key = field + "Expanded";
     this.setState(prevState => {
-      return { [key]: !prevState[key] };
+      if (field === prevState.expanded) {
+        return { expanded: "" };
+      }
+      return { expanded: field };
     });
   }
 
   showCalendar() {
-      if(this.state.checkinExpanded===true) {
-        return <Calendar />;
-      }
-      if(this.state.checkoutExpanded===true) {
-        return <Calendar />;
-      }
+    if (this.state.expanded !== "") {
+      const alignment = this.state.expanded === "checkin" ? "left" : "right";
+      return <Calendar alignment={alignment}/>;
+    }
   }
 
   render() {
@@ -59,7 +57,7 @@ class ReservationWidget extends Component {
             >
               <DateInput
                 placeholder="Check In"
-                expanded={this.state.checkinExpanded}
+                expanded={this.state.expanded === "checkin"}
               />
             </span>
             <div className="ReservationWidget_separator" />
@@ -70,7 +68,7 @@ class ReservationWidget extends Component {
             >
               <DateInput
                 placeholder="Check Out"
-                expanded={this.state.checkoutExpanded===true}
+                expanded={this.state.expanded === "checkout"}
               />
             </span>
           </div>

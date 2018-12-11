@@ -7,8 +7,7 @@ import "./css/Calendar.css";
 const Calendar = props => {
   return (
     <div>
-      <div className="Calendar_arrow_left" />
-      <div className="Calendar">
+      <div className="Calendar" style={{float: props.alignment}}>
         <MonthPicker />
         <MonthView />
 
