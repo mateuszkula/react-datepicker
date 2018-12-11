@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Price from "../price/Price";
 import Rating from "../rating/Rating";
+import Calendar from "../datePicker/Calendar";
 import DateInput from "../dateInput/DateInput";
 
 import "./css/ReservationWidget.css";
@@ -12,6 +13,7 @@ class ReservationWidget extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        expanded: "",
       checkinExpanded: false,
       checkoutExpanded: false,
       checkinDate: "",
@@ -19,16 +21,23 @@ class ReservationWidget extends Component {
     };
 
     this.clicked = this.clicked.bind(this);
+    this.showCalendar = this.showCalendar.bind(this);
   }
 
   clicked(field) {
-    console.log("I have been clicked + " + field);
     const key = field + "Expanded";
-    console.log(key);
-    console.log(this.state[key])
     this.setState(prevState => {
       return { [key]: !prevState[key] };
     });
+  }
+
+  showCalendar() {
+      if(this.state.checkinExpanded===true) {
+        return <Calendar />;
+      }
+      if(this.state.checkoutExpanded===true) {
+        return <Calendar />;
+      }
   }
 
   render() {
@@ -61,11 +70,12 @@ class ReservationWidget extends Component {
             >
               <DateInput
                 placeholder="Check Out"
-                expanded={this.state.checkoutExpanded}
+                expanded={this.state.checkoutExpanded===true}
               />
             </span>
           </div>
         </div>
+        {this.showCalendar()}
       </div>
     );
   }
