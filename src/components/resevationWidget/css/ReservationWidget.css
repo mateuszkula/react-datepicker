@@ -9,9 +9,6 @@
   display: flex;
   flex-flow: column;
   box-sizing: border-box;
-
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    Helvetica Neue, sans-serif;
 }
 
 .ReservationWidget_hr {
@@ -38,7 +35,7 @@
 }
 
 .ReservationWidget_separator {
-  border-left: 1px solid lightgray; 
+  border-left: 1px solid lightgray;
   margin: 5px 0px;
   height: 30px;
 }
