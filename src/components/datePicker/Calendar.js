@@ -4,12 +4,27 @@ import MonthPicker from "./MonthPicker";
 
 import "./css/Calendar.css";
 
-const Calendar = ({ alignment, month, lastUpdate, previousMonth, nextMonth }) => {
+const Calendar = ({
+  alignment,
+  month,
+  lastUpdate,
+  previousMonth,
+  nextMonth,
+  numberOfDaysInMonth,
+  firstDayOfMonth
+}) => {
   return (
     <div>
       <div className="Calendar" style={{ float: alignment }}>
-        <MonthPicker month={month} previousMonth={previousMonth} nextMonth={nextMonth}/>
-        <MonthView />
+        <MonthPicker
+          month={month}
+          previousMonth={previousMonth}
+          nextMonth={nextMonth}
+        />
+        <MonthView
+          firstDayOfMonth={firstDayOfMonth}
+          numberOfDaysInMonth={numberOfDaysInMonth}
+         />
 
         <div className="Calendar_bottom_info">
           <p>Minimum stay varies</p>

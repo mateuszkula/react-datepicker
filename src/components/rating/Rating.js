@@ -16,7 +16,7 @@ const Rating = ({ numberOfRatings, rating }) => {
             {stars}
           </div>
           <div className="Rating_stars_bottom">{stars}</div>
-        </div>{" "}
+        </div>
         {numberOfRatings}
       </span>
     </div>

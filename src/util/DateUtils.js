@@ -22,17 +22,30 @@ export function getCurrentMonthWithYear() {
 
 export function getPreviousMonth(monthWithYear) {
   let newMonth, newYear;
-  let [ month, year ] = monthWithYear.split(" ");
-  const monthIndex = months.indexOf(month)
+  let [month, year] = monthWithYear.split(" ");
+  const monthIndex = months.indexOf(month);
   newMonth = monthIndex === 0 ? "December" : months[monthIndex - 1];
   newYear = monthIndex === 0 ? Number(year) - 1 : year;
   return `${newMonth} ${newYear}`;
 }
 
+export function getFirstDayOfMonth(monthWithYear) {
+  let [month, year] = monthWithYear.split(" ");
+  let monthAsNumber = Number(months.indexOf(month)) ;
+  return new Date(year, monthAsNumber, 1).getDay();
+}
+
+export function getNumberOfDaysInMonth(monthWithYear) {
+  let [month, year] = monthWithYear.split(" ");
+  let monthAsNumber = Number(months.indexOf(month)) + 1;
+  console.log(monthAsNumber);
+  return new Date(year, monthAsNumber, 0).getDate();
+}
+
 export function getNextMonth(monthWithYear) {
   let newMonth, newYear;
-  let [ month, year ] = monthWithYear.split(" ");
-  const monthIndex = months.indexOf(month)
+  let [month, year] = monthWithYear.split(" ");
+  const monthIndex = months.indexOf(month);
   newMonth = monthIndex === 11 ? "January" : months[monthIndex + 1];
   newYear = monthIndex === 11 ? Number(year) + 1 : year;
   return `${newMonth} ${newYear}`;

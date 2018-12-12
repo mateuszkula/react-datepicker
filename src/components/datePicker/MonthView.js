@@ -3,35 +3,30 @@ import "./css/MonthView.css";
 
 const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-const MonthView = props => {
+const emptyDayBox = "MonthView_day_box";
+const day = "MonthView_day_box MonthView_day_non_empty";
+
+const MonthView = ({ firstDayOfMonth, numberOfDaysInMonth }) => {
+  let monthArray = [];
+
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    monthArray.push(<div className={emptyDayBox} />);
+  }
+
+  for (let i = 1; i <= numberOfDaysInMonth; i++) {
+    monthArray.push(<div className={day}>{i}</div>);
+  }
+
   return (
     <div>
-    <div className="MonthView">
+      <div className="MonthView">
         <div className="MonthView_nameOfDays">
           {daysOfWeek.map(item => {
-            return <div className="MonthView_name">{item}</div>
+            return <div className="MonthView_nameOfDay">{item}</div>;
           })}
         </div>
-    </div>
-      <div className="MonthView">
-        <div className="MonthView_week">
-          <div className="MonthView_day">1</div>
-          <div className="MonthView_day">2</div>
-        </div>
-        <div className="MonthView_week">
-          <div className="MonthView_day">3</div>
-          <div className="MonthView_day">4</div>
-          <div className="MonthView_day">5</div>
-          <div className="MonthView_day">6</div>
-          <div className="MonthView_day">7</div>
-          <div className="MonthView_day">8</div>
-          <div className="MonthView_day">9</div>
-        </div>
-        <div className="MonthView_week">
-          <div className="MonthView_day">10</div>
-          <div className="MonthView_day">11</div>
-        </div>
       </div>
+      <div className="MonthView">{[...monthArray]}</div>
     </div>
   );
 };

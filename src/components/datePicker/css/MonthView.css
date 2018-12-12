@@ -1,7 +1,7 @@
 .MonthView {
   padding-top: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   flex-wrap: wrap;
   width: 90%;
   margin: 0px auto;
@@ -16,27 +16,12 @@
   padding-bottom: 10px;
 }
 
-.MonthView_name {
-  width: 14%;
+.MonthView_nameOfDay {
+  width: 14.28%;
   text-align: center;
 }
 
-.MonthView_week {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.MonthView_week:first-of-type {
-  justify-content: flex-end;
-}
-
-.MonthView_week:last-of-type {
-  justify-content: flex-start;
-}
-
-.MonthView_day {
+.MonthView_day_box {
   text-align: center;
   box-sizing: border-box;
   width: 14.28%;
@@ -44,6 +29,6 @@
   line-height: 32px;
 }
 
-.MonthView_day:hover {
+.MonthView_day_non_empty:hover {
   background-color: lightblue;
 }
