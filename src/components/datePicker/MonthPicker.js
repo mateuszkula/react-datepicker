@@ -1,15 +1,23 @@
 import React from "react";
-import './css/MonthPicker.css';
+import "./css/MonthPicker.css";
 
 const leftArrow = "<-";
 const rightArrow = "->";
 
-const MonthPicker = () => {
+const MonthPicker = ({ month, previousMonth, nextMonth }) => {
   return (
     <div className="MonthPicker">
-      <button className="MonthPicker_button" type="button">{leftArrow}</button>
-      <span className="MonthPicker_month">December 2018</span>
-      <button className="MonthPicker_button" type="button">{rightArrow}</button>
+      <button
+        className="MonthPicker_button"
+        onClick={previousMonth}
+        type="button"
+      >
+        {leftArrow}
+      </button>
+      <span className="MonthPicker_month">{month}</span>
+      <button className="MonthPicker_button" type="button" onClick={nextMonth}>
+        {rightArrow}
+      </button>
     </div>
   );
 };

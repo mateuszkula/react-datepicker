@@ -4,6 +4,8 @@ import Rating from "../rating/Rating";
 import Calendar from "../datePicker/Calendar";
 import DateInput from "../dateInput/DateInput";
 
+import * as DateUtil from "../../util/DateUtils";
+
 import "./css/ReservationWidget.css";
 
 const checkin = "checkin";
@@ -15,11 +17,25 @@ class ReservationWidget extends Component {
     this.state = {
       expanded: "",
       checkinDate: "",
-      checkoutDate: ""
+      checkoutDate: "",
+      selectedMonth: DateUtil.getCurrentMonthWithYear()
     };
 
     this.clicked = this.clicked.bind(this);
     this.showCalendar = this.showCalendar.bind(this);
+    this.previousMonth = this.previousMonth.bind(this);
+    this.nextMonth = this.nextMonth.bind(this);
+  }
+
+  previousMonth() {
+    this.setState((prevState) => {
+      return {selectedMonth: DateUtil.getPreviousMonth(prevState.selectedMonth)}
+    })
+  }
+  nextMonth() {
+    this.setState((prevState) => {
+      return {selectedMonth: DateUtil.getNextMonth(prevState.selectedMonth)}
+    })
   }
 
   clicked(field) {
@@ -34,7 +50,15 @@ class ReservationWidget extends Component {
   showCalendar() {
     if (this.state.expanded !== "") {
       const alignment = this.state.expanded === "checkin" ? "left" : "right";
-      return <Calendar alignment={alignment}/>;
+      return (
+        <Calendar
+          alignment={alignment}
+          month={this.state.selectedMonth}
+          lastUpdate={this.props.lastUpdate}
+          previousMonth={this.previousMonth}
+          nextMonth={this.nextMonth}
+        />
+      );
     }
   }
 
