@@ -1,15 +1,15 @@
 import React from "react";
 import "./css/DateInput.css";
 
-const DateInput = props => {
-    let expanded = props.expanded ? "DateInput_expanded" : "";
-    let classes = `DateInput ${expanded}` 
+const DateInput = ({expanded, placeholder, clicked}) => {
+    let isExpanded = expanded ? "DateInput_expanded" : "";
+    let classes = `DateInput ${isExpanded}` 
   return (
     <input
       type="text"
       className={classes}
-      placeholder={props.placeholder}
-      onClick={props.clicked}
+      placeholder={placeholder}
+      onClick={clicked}
     />
   );
 };

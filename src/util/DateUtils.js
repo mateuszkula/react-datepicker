@@ -13,6 +13,12 @@ const months = [
   "December"
 ];
 
+export function getMontWithYearAsNumbers(monthWithYear) {
+  let [month, year] = monthWithYear.split(" ");
+  const monthIndex = months.indexOf(month) + 1;
+  return [monthIndex, year];
+}
+
 export function getCurrentMonthWithYear() {
   const today = new Date();
   const month = months[today.getMonth()];
@@ -31,14 +37,13 @@ export function getPreviousMonth(monthWithYear) {
 
 export function getFirstDayOfMonth(monthWithYear) {
   let [month, year] = monthWithYear.split(" ");
-  let monthAsNumber = Number(months.indexOf(month)) ;
+  let monthAsNumber = Number(months.indexOf(month));
   return new Date(year, monthAsNumber, 1).getDay();
 }
 
 export function getNumberOfDaysInMonth(monthWithYear) {
   let [month, year] = monthWithYear.split(" ");
   let monthAsNumber = Number(months.indexOf(month)) + 1;
-  console.log(monthAsNumber);
   return new Date(year, monthAsNumber, 0).getDate();
 }
 

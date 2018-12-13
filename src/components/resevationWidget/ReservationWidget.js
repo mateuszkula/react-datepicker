@@ -18,6 +18,7 @@ class ReservationWidget extends Component {
       expanded: "",
       checkinDate: "",
       checkoutDate: "",
+      hoveringOverDate: "",
       selectedMonth: DateUtil.getCurrentMonthWithYear()
     };
 
@@ -25,17 +26,33 @@ class ReservationWidget extends Component {
     this.showCalendar = this.showCalendar.bind(this);
     this.previousMonth = this.previousMonth.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
+    this.isDayAlreadyBooked = this.isDayAlreadyBooked.bind(this);
+    this.generateDaysStatus = this.generateDaysStatus.bind(this);
+    this.selectDate = this.selectDate.bind(this);
+    this.hoveringOverDate = this.hoveringOverDate.bind(this);
+  }
+
+  hoveringOverDate(dayNumber) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    const date = `${dayNumber}.${month}.${year}`;
+    this.setState({
+      hoveringOverDate: date
+    });
   }
 
   previousMonth() {
-    this.setState((prevState) => {
-      return {selectedMonth: DateUtil.getPreviousMonth(prevState.selectedMonth)}
-    })
+    this.setState(prevState => {
+      return {
+        selectedMonth: DateUtil.getPreviousMonth(prevState.selectedMonth)
+      };
+    });
   }
   nextMonth() {
-    this.setState((prevState) => {
-      return {selectedMonth: DateUtil.getNextMonth(prevState.selectedMonth)}
-    })
+    this.setState(prevState => {
+      return { selectedMonth: DateUtil.getNextMonth(prevState.selectedMonth) };
+    });
   }
 
   clicked(field) {
@@ -45,6 +62,59 @@ class ReservationWidget extends Component {
       }
       return { expanded: field };
     });
+  }
+
+  isDayAlreadyBooked(day) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    const date = `${day}.${month}.${year}`;
+    return this.props.bookedDates.indexOf(date) >= 0 ? "BOOKED" : "";
+  }
+
+  isDayAlreadySelected(day) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    const date = `${day}.${month}.${year}`;
+    if (date === this.state.checkinDate || date === this.state.checkoutDate) {
+      return "SELECTED";
+    }
+  }
+
+
+  selectDate(dayNumber, checkType) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    const date = `${dayNumber}.${month}.${year}`;
+    this.setState({
+      [checkType + "Date"]: date
+    });
+  }
+
+  generateDaysStatus() {
+    let numberOfDaysInMonth = DateUtil.getNumberOfDaysInMonth(
+      this.state.selectedMonth
+    );
+    let days = [];
+    for (let i = 1; i <= numberOfDaysInMonth; i++) {
+      let day = {};
+      day.number = i;
+      day.onClick = () => {
+        this.selectDate(i, this.state.expanded);
+      };
+      days.push(day);
+    }
+
+    days = days.map(item => {
+      item.state =
+        this.isDayAlreadyBooked(item.number) ||
+        this.isDayAlreadySelected(item.number);
+      return item;
+    });
+
+    return days;
   }
 
   showCalendar() {
@@ -57,8 +127,13 @@ class ReservationWidget extends Component {
           lastUpdate={this.props.lastUpdate}
           previousMonth={this.previousMonth}
           nextMonth={this.nextMonth}
-          numberOfDaysInMonth={DateUtil.getNumberOfDaysInMonth(this.state.selectedMonth)}
-          firstDayOfMonth={DateUtil.getFirstDayOfMonth(this.state.selectedMonth)}
+          numberOfDaysInMonth={DateUtil.getNumberOfDaysInMonth(
+            this.state.selectedMonth
+          )}
+          daysInMonth={this.generateDaysStatus()}
+          firstDayOfMonth={DateUtil.getFirstDayOfMonth(
+            this.state.selectedMonth
+          )}
         />
       );
     }

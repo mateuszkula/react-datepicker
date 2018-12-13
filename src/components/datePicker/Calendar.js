@@ -11,7 +11,8 @@ const Calendar = ({
   previousMonth,
   nextMonth,
   numberOfDaysInMonth,
-  firstDayOfMonth
+  firstDayOfMonth,
+  daysInMonth
 }) => {
   return (
     <div>
@@ -24,7 +25,8 @@ const Calendar = ({
         <MonthView
           firstDayOfMonth={firstDayOfMonth}
           numberOfDaysInMonth={numberOfDaysInMonth}
-         />
+          daysInMonth={daysInMonth}
+        />
 
         <div className="Calendar_bottom_info">
           <p>Minimum stay varies</p>
