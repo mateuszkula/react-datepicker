@@ -22,7 +22,7 @@ class ReservationWidget extends Component {
       selectedMonth: DateUtil.getCurrentMonthWithYear()
     };
 
-    this.clicked = this.clicked.bind(this);
+    this.onInputClick = this.onInputClick.bind(this);
     this.showCalendar = this.showCalendar.bind(this);
     this.previousMonth = this.previousMonth.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
@@ -45,7 +45,10 @@ class ReservationWidget extends Component {
   previousMonth() {
     this.setState(prevState => {
       return {
-        selectedMonth: DateUtil.getAnotherMonth(prevState.selectedMonth, "previous")
+        selectedMonth: DateUtil.getAnotherMonth(
+          prevState.selectedMonth,
+          "previous"
+        )
       };
     });
   }
@@ -53,11 +56,11 @@ class ReservationWidget extends Component {
     this.setState(prevState => {
       return {
         selectedMonth: DateUtil.getAnotherMonth(prevState.selectedMonth, "next")
-      }
+      };
     });
   }
 
-  clicked(field) {
+  onInputClick(field) {
     this.setState(prevState => {
       if (field === prevState.expanded) {
         return { expanded: "" };
@@ -83,7 +86,6 @@ class ReservationWidget extends Component {
       return "SELECTED";
     }
   }
-
 
   selectDate(dayNumber, checkType) {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
@@ -155,23 +157,25 @@ class ReservationWidget extends Component {
           <div className="ReservationWidget_input">
             <span
               onClick={() => {
-                this.clicked(checkin);
+                this.onInputClick(checkin);
               }}
             >
               <DateInput
                 placeholder="Check In"
                 expanded={this.state.expanded === "checkin"}
+                value={this.state.checkinDate}
               />
             </span>
             <div className="ReservationWidget_separator" />
             <span
               onClick={() => {
-                this.clicked(checkout);
+                this.onInputClick(checkout);
               }}
             >
               <DateInput
                 placeholder="Check Out"
                 expanded={this.state.expanded === "checkout"}
+                value={this.state.checkoutDate}
               />
             </span>
           </div>
