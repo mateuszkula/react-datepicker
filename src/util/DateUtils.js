@@ -42,7 +42,7 @@ export function getAnotherMonth(monthWithYear, action) {
 
 export function getFirstDayOfMonth(monthWithYear) {
   let [monthAsNumber, year] = getMontWithYearAsNumbers(monthWithYear);
-  return new Date(year, monthAsNumber, 1).getDay();
+  return new Date(year, monthAsNumber-1, 1).getDay();
 }
 
 export function getNumberOfDaysInMonth(monthWithYear) {
