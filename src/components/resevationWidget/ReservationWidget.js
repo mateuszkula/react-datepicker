@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Price from "../price/Price";
 import Rating from "../rating/Rating";
-import Calendar from "../datePicker/Calendar";
+import Calendar from "../calendar/Calendar";
 import DateInput from "../dateInput/DateInput";
 
 import * as DateUtil from "../../util/DateUtils";
