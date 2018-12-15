@@ -92,8 +92,17 @@ class ReservationWidget extends Component {
       this.state.selectedMonth
     );
     const date = `${dayNumber}.${month}.${year}`;
+
+    let expanded = "";
+    if (checkType === checkin && this.state.checkoutDate === "") {
+      expanded = checkout;
+    }
+    if (checkType === checkout && this.state.checkinDate === "") {
+      expanded = checkin;
+    }
     this.setState({
-      [checkType + "Date"]: date
+      [checkType + "Date"]: date,
+      expanded
     });
   }
 
