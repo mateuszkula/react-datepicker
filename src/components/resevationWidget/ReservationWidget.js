@@ -45,13 +45,15 @@ class ReservationWidget extends Component {
   previousMonth() {
     this.setState(prevState => {
       return {
-        selectedMonth: DateUtil.getPreviousMonth(prevState.selectedMonth)
+        selectedMonth: DateUtil.getAnotherMonth(prevState.selectedMonth, "previous")
       };
     });
   }
   nextMonth() {
     this.setState(prevState => {
-      return { selectedMonth: DateUtil.getNextMonth(prevState.selectedMonth) };
+      return {
+        selectedMonth: DateUtil.getAnotherMonth(prevState.selectedMonth, "next")
+      }
     });
   }
 

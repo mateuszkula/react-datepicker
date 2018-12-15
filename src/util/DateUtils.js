@@ -15,8 +15,8 @@ const months = [
 
 export function getMontWithYearAsNumbers(monthWithYear) {
   let [month, year] = monthWithYear.split(" ");
-  const monthIndex = months.indexOf(month) + 1;
-  return [monthIndex, year];
+  let monthAsNumber = Number(months.indexOf(month)) + 1;
+  return [monthAsNumber, year];
 }
 
 export function getCurrentMonthWithYear() {
@@ -26,32 +26,26 @@ export function getCurrentMonthWithYear() {
   return `${month} ${year}`;
 }
 
-export function getPreviousMonth(monthWithYear) {
+export function getAnotherMonth(monthWithYear, action) {
   let newMonth, newYear;
   let [month, year] = monthWithYear.split(" ");
   const monthIndex = months.indexOf(month);
-  newMonth = monthIndex === 0 ? "December" : months[monthIndex - 1];
-  newYear = monthIndex === 0 ? Number(year) - 1 : year;
+  if (action === "next") {
+    newMonth = monthIndex === 11 ? "January" : months[monthIndex + 1];
+    newYear = monthIndex === 11 ? Number(year) + 1 : year;
+  } else {
+    newMonth = monthIndex === 0 ? "December" : months[monthIndex - 1];
+    newYear = monthIndex === 0 ? Number(year) - 1 : year;
+  }
   return `${newMonth} ${newYear}`;
 }
 
 export function getFirstDayOfMonth(monthWithYear) {
-  let [month, year] = monthWithYear.split(" ");
-  let monthAsNumber = Number(months.indexOf(month));
+  let [monthAsNumber, year] = getMontWithYearAsNumbers(monthWithYear);
   return new Date(year, monthAsNumber, 1).getDay();
 }
 
 export function getNumberOfDaysInMonth(monthWithYear) {
-  let [month, year] = monthWithYear.split(" ");
-  let monthAsNumber = Number(months.indexOf(month)) + 1;
+  let [monthAsNumber, year] = getMontWithYearAsNumbers(monthWithYear);
   return new Date(year, monthAsNumber, 0).getDate();
-}
-
-export function getNextMonth(monthWithYear) {
-  let newMonth, newYear;
-  let [month, year] = monthWithYear.split(" ");
-  const monthIndex = months.indexOf(month);
-  newMonth = monthIndex === 11 ? "January" : months[monthIndex + 1];
-  newYear = monthIndex === 11 ? Number(year) + 1 : year;
-  return `${newMonth} ${newYear}`;
 }
