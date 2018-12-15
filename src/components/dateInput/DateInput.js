@@ -7,6 +7,7 @@ const DateInput = ({ expanded, placeholder, onClick, value }) => {
   value = value.split(".").join("-");
   return (
     <input
+      readOnly
       type="text"
       className={classes}
       placeholder={placeholder}
