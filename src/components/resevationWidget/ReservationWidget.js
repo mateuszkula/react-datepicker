@@ -124,6 +124,7 @@ class ReservationWidget extends Component {
       item.state =
         this.isDayAlreadyBooked(item.number) ||
         this.isDayAlreadySelected(item.number);
+      item.onClick = item.state === "BOOKED" ? () => {} : item.onClick;
       return item;
     });
 

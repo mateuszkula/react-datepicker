@@ -19,7 +19,7 @@ const MonthView = ({ firstDayOfMonth, daysInMonth }) => {
       return (
         <DayBox
           key={keyId++}
-          onClick={day.state === "BOOKED" ? () => {} : day.onClick}
+          onClick={day.onClick}
           state={day.state}
         >
           {day.number}
