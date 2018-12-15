@@ -1,8 +1,8 @@
 import React from "react";
 import "./css/MonthPicker.css";
 
-const leftArrow = "<-";
-const rightArrow = "->";
+const leftArrow = "←";
+const rightArrow = "→";
 
 const MonthPicker = ({ month, previousMonth, nextMonth }) => {
   return (
