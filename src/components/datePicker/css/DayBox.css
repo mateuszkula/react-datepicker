@@ -1,0 +1,24 @@
+.DayBox {
+  text-align: center;
+  box-sizing: border-box;
+  width: 14.28%;
+  height: 32px;
+  color: black;
+  line-height: 32px;
+}
+.DayBox_nonEmpty:hover {
+  background-color: lightblue;
+}
+
+.DayBox_selected {
+  background-color: lightseagreen;
+}
+
+.DayBox_booked {
+  text-decoration: line-through;
+  color: lightgray;
+}
+
+.DayBox_booked:hover {
+  background-color: white;
+}

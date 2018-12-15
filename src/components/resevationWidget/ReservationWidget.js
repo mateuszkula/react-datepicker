@@ -131,9 +131,6 @@ class ReservationWidget extends Component {
           lastUpdate={this.props.lastUpdate}
           previousMonth={this.previousMonth}
           nextMonth={this.nextMonth}
-          numberOfDaysInMonth={DateUtil.getNumberOfDaysInMonth(
-            this.state.selectedMonth
-          )}
           daysInMonth={this.generateDaysStatus()}
           firstDayOfMonth={DateUtil.getFirstDayOfMonth(
             this.state.selectedMonth

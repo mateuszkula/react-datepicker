@@ -10,7 +10,6 @@ const Calendar = ({
   lastUpdate,
   previousMonth,
   nextMonth,
-  numberOfDaysInMonth,
   firstDayOfMonth,
   daysInMonth
 }) => {
@@ -24,7 +23,6 @@ const Calendar = ({
         />
         <MonthView
           firstDayOfMonth={firstDayOfMonth}
-          numberOfDaysInMonth={numberOfDaysInMonth}
           daysInMonth={daysInMonth}
         />
 

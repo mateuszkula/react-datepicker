@@ -20,29 +20,3 @@
   width: 14.28%;
   text-align: center;
 }
-
-.MonthView_day_box {
-  text-align: center;
-  box-sizing: border-box;
-  width: 14.28%;
-  height: 32px;
-  color: black;
-  line-height: 32px;
-}
-
-.MonthView_day_booked {
-  text-decoration: line-through;
-  color: lightgray;
-}
-
-.MonthView_day_selected {
-  background-color: lightseagreen;
-}
-
-.MonthView_day_non_empty:hover {
-  background-color: lightblue;
-}
-
-.MonthView_day_between_dates {
-  background-color: lightcyan;
-}

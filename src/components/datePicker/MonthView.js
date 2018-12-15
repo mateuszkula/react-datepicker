@@ -1,57 +1,47 @@
 import React from "react";
+import DayBox from "./DayBox";
+
 import "./css/MonthView.css";
 
 const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-const emptyDayBox = "MonthView_day_box";
-const dayClass = "MonthView_day_box MonthView_day_non_empty";
-
-const MonthView = ({ firstDayOfMonth, numberOfDaysInMonth, daysInMonth }) => {
-  let monthArray = [];
+const MonthView = ({ firstDayOfMonth, daysInMonth }) => {
+  let daysArray = [];
   let keyId = 0;
 
   for (let i = 0; i < firstDayOfMonth; i++) {
-    monthArray.push(<div key={keyId} className={emptyDayBox} />);
-    keyId++;
+    daysArray.push(<DayBox key={keyId++} />);
   }
 
-  daysInMonth.map(day => {
-    let style = dayClass;
-    if (day.state === "BOOKED") {
-      style = `${emptyDayBox} MonthView_day_booked`;
-    }
-    if (day.state === "SELECTED") {
-      style = `${emptyDayBox} MonthView_day_selected`;
-    }
-    monthArray.push(
-      <div
-        key={keyId}
-        onClick={day.onClick}
-        className={style}
-        onMouseOver={() => {
-          console.log("I am over day: " + day.number);
-        }}
-      >
-        {day.number}
+  daysArray = [
+    ...daysArray,
+    ...daysInMonth.map(day => {
+      return (
+        <DayBox
+          key={keyId++}
+          onClick={day.state === "BOOKED" ? () => {} : day.onClick}
+          state={day.state}
+        >
+          {day.number}
+        </DayBox>
+      );
+    })
+  ];
+
+  let daysOfWeekRow = daysOfWeek.map(item => {
+    return (
+      <div key={item} className="MonthView_nameOfDay">
+        {item}
       </div>
     );
-    keyId++;
   });
 
   return (
     <div>
       <div className="MonthView">
-        <div className="MonthView_nameOfDays">
-          {daysOfWeek.map(item => {
-            return (
-              <div key={item} className="MonthView_nameOfDay">
-                {item}
-              </div>
-            );
-          })}
-        </div>
+        <div className="MonthView_nameOfDays">{[...daysOfWeekRow]}</div>
       </div>
-      <div className="MonthView">{[...monthArray]}</div>
+      <div className="MonthView">{[...daysArray]}</div>
     </div>
   );
 };
