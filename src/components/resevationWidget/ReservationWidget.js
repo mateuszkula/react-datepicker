@@ -104,14 +104,44 @@ class ReservationWidget extends Component {
         return "BETWEEN";
       }
     }
-
   }
 
-  isDayBetweenSelectedDateAndHoover(day) {
+  compareDatesBetweenSelectedAndHoover(selected, dayNumber) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    let selectedAsDate = DateUtil.getStringAsDateObject(selected);
+    let hoveringOverDate = DateUtil.getStringAsDateObject(
+      this.state.hoveringOverDate
+    );
 
+    let date = DateUtil.getStringAsDateObject(`${dayNumber}-${month}-${year}`);
+
+    if (selectedAsDate < date && date <= hoveringOverDate) {
+      return "BETWEEN";
+    }
+    if (hoveringOverDate <= date && date < checkin) {
+      return "BETWEEN";
+    }
   }
 
-
+  isDayBetweenSelectedDateAndHoover(dayNumber) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    if (this.state.checkinDate !== "" && this.state.checkoutDate === "") {
+      return this.compareDatesBetweenSelectedAndHoover(
+        this.state.checkinDate,
+        dayNumber
+      );
+    }
+    if (this.state.checkoutDate !== "" && this.state.checkinDate === "") {
+      return this.compareDatesBetweenSelectedAndHoover(
+        this.state.checkoutDate,
+        dayNumber
+      );
+    }
+  }
 
   isDayAlreadySelected(dayNumber) {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
@@ -165,8 +195,7 @@ class ReservationWidget extends Component {
         this.isDayAlreadyBooked(item.number) ||
         this.isDayAlreadySelected(item.number) ||
         this.isDayBetweenCheckinAndCheckout(item.number) ||
-        this.isDayBetweenSelectedDateAndHoover(item.number)
-        ;
+        this.isDayBetweenSelectedDateAndHoover(item.number);
       item.onClick = item.state === "BOOKED" ? () => {} : item.onClick;
       item.onClick = item.state === "PASTDATE" ? () => {} : item.onClick;
       return item;
