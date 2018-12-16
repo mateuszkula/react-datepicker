@@ -4,7 +4,6 @@ import "./css/DateInput.css";
 const DateInput = ({ expanded, placeholder, onClick, value }) => {
   let isExpanded = expanded ? "DateInput_expanded" : "";
   let classes = `DateInput ${isExpanded}`;
-  value = value.split(".").join("-");
   return (
     <input
       readOnly

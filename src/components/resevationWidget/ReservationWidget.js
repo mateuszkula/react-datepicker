@@ -73,7 +73,7 @@ class ReservationWidget extends Component {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
       this.state.selectedMonth
     );
-    const date = `${day}.${month}.${year}`;
+    const date = `${day}-${month}-${year}`;
     return this.props.bookedDates.indexOf(date) >= 0 ? "BOOKED" : "";
   }
 
@@ -91,7 +91,7 @@ class ReservationWidget extends Component {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
       this.state.selectedMonth
     );
-    const date = `${dayNumber}.${month}.${year}`;
+    const date = `${dayNumber}-${month}-${year}`;
 
     let expanded = "";
     if (checkType === checkin && this.state.checkoutDate === "") {
