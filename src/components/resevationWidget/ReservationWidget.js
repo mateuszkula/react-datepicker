@@ -27,8 +27,8 @@ class ReservationWidget extends Component {
     this.previousMonth = this.previousMonth.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
     this.isDayAlreadyBooked = this.isDayAlreadyBooked.bind(this);
-    this.generateDaysStatus = this.generateDaysStatus.bind(this);
-    this.selectDate = this.selectDate.bind(this);
+    this.generateDaysInMonthArray = this.generateDaysInMonthArray.bind(this);
+    this.onDateSelect = this.onDateSelect.bind(this);
     this.hoveringOverDate = this.hoveringOverDate.bind(this);
   }
 
@@ -36,7 +36,7 @@ class ReservationWidget extends Component {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
       this.state.selectedMonth
     );
-    const date = `${dayNumber}.${month}.${year}`;
+    const date = `${dayNumber}-${month}-${year}`;
     this.setState({
       hoveringOverDate: date
     });
@@ -81,13 +81,13 @@ class ReservationWidget extends Component {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
       this.state.selectedMonth
     );
-    const date = `${day}.${month}.${year}`;
+    const date = `${day}-${month}-${year}`;
     if (date === this.state.checkinDate || date === this.state.checkoutDate) {
       return "SELECTED";
     }
   }
 
-  selectDate(dayNumber, checkType) {
+  onDateSelect(dayNumber, checkType) {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
       this.state.selectedMonth
     );
@@ -106,7 +106,7 @@ class ReservationWidget extends Component {
     });
   }
 
-  generateDaysStatus() {
+  generateDaysInMonthArray() {
     let numberOfDaysInMonth = DateUtil.getNumberOfDaysInMonth(
       this.state.selectedMonth
     );
@@ -115,7 +115,7 @@ class ReservationWidget extends Component {
       let day = {};
       day.number = i;
       day.onClick = () => {
-        this.selectDate(i, this.state.expanded);
+        this.onDateSelect(i, this.state.expanded);
       };
       days.push(day);
     }
@@ -141,7 +141,7 @@ class ReservationWidget extends Component {
           lastUpdate={this.props.lastUpdate}
           previousMonth={this.previousMonth}
           nextMonth={this.nextMonth}
-          daysInMonth={this.generateDaysStatus()}
+          daysInMonth={this.generateDaysInMonthArray()}
           firstDayOfMonth={DateUtil.getFirstDayOfMonth(
             this.state.selectedMonth
           )}
