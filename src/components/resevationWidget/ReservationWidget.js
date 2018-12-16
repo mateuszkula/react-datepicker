@@ -26,7 +26,6 @@ class ReservationWidget extends Component {
     this.showCalendar = this.showCalendar.bind(this);
     this.previousMonth = this.previousMonth.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
-    this.isDayAlreadyBooked = this.isDayAlreadyBooked.bind(this);
     this.generateDaysInMonthArray = this.generateDaysInMonthArray.bind(this);
     this.onDateSelect = this.onDateSelect.bind(this);
     this.hoveringOverDate = this.hoveringOverDate.bind(this);
@@ -77,11 +76,48 @@ class ReservationWidget extends Component {
     return this.props.bookedDates.indexOf(date) >= 0 ? "BOOKED" : "";
   }
 
-  isDayAlreadySelected(day) {
+  isDayInThePast(dayNumber) {
     const [month, year] = DateUtil.getMontWithYearAsNumbers(
       this.state.selectedMonth
     );
-    const date = `${day}-${month}-${year}`;
+    let today = DateUtil.getAsDateObject();
+    let day = DateUtil.getAsDateObject({ year, month, dayNumber });
+
+    return day < today ? "PASTDATE" : "";
+  }
+
+  isDayBetweenCheckinAndCheckout(dayNumber) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    if (this.state.checkinDate !== "" && this.state.checkoutDate !== "") {
+      let checkinDate = DateUtil.getStringAsDateObject(this.state.checkinDate);
+      let checkoutDate = DateUtil.getStringAsDateObject(
+        this.state.checkoutDate
+      );
+
+      let date = DateUtil.getStringAsDateObject(
+        `${dayNumber}-${month}-${year}`
+      );
+
+      if (checkinDate < date && date < checkoutDate) {
+        return "BETWEEN";
+      }
+    }
+
+  }
+
+  isDayBetweenSelectedDateAndHoover(day) {
+
+  }
+
+
+
+  isDayAlreadySelected(dayNumber) {
+    const [month, year] = DateUtil.getMontWithYearAsNumbers(
+      this.state.selectedMonth
+    );
+    const date = `${dayNumber}-${month}-${year}`;
     if (date === this.state.checkinDate || date === this.state.checkoutDate) {
       return "SELECTED";
     }
@@ -117,14 +153,22 @@ class ReservationWidget extends Component {
       day.onClick = () => {
         this.onDateSelect(i, this.state.expanded);
       };
+      day.onMouseOver = () => {
+        this.setState(this.hoveringOverDate(day.number));
+      };
       days.push(day);
     }
 
     days = days.map(item => {
       item.state =
+        this.isDayInThePast(item.number) ||
         this.isDayAlreadyBooked(item.number) ||
-        this.isDayAlreadySelected(item.number);
+        this.isDayAlreadySelected(item.number) ||
+        this.isDayBetweenCheckinAndCheckout(item.number) ||
+        this.isDayBetweenSelectedDateAndHoover(item.number)
+        ;
       item.onClick = item.state === "BOOKED" ? () => {} : item.onClick;
+      item.onClick = item.state === "PASTDATE" ? () => {} : item.onClick;
       return item;
     });
 

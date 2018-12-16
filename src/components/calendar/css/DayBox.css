@@ -14,11 +14,24 @@
   background-color: lightseagreen;
 }
 
+.DayBox_between {
+  background-color: lightcyan;
+}
+
 .DayBox_booked {
   text-decoration: line-through;
   color: lightgray;
 }
 
+.DayBox_pastdate {
+  text-decoration: line-through;
+  color: lightgray;
+}
+
 .DayBox_booked:hover {
+  background-color: white;
+}
+
+.DayBox_pastdate:hover {
   background-color: white;
 }

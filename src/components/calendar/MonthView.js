@@ -21,6 +21,7 @@ const MonthView = ({ firstDayOfMonth, daysInMonth }) => {
           key={keyId++}
           onClick={day.onClick}
           state={day.state}
+          onMouseOver={day.onMouseOver}
         >
           {day.number}
         </DayBox>

@@ -42,10 +42,34 @@ export function getAnotherMonth(monthWithYear, action) {
 
 export function getFirstDayOfMonth(monthWithYear) {
   let [monthAsNumber, year] = getMontWithYearAsNumbers(monthWithYear);
-  return new Date(year, monthAsNumber-1, 1).getDay();
+  return new Date(year, monthAsNumber - 1, 1).getDay();
 }
 
 export function getNumberOfDaysInMonth(monthWithYear) {
   let [monthAsNumber, year] = getMontWithYearAsNumbers(monthWithYear);
   return new Date(year, monthAsNumber, 0).getDate();
+}
+
+export function getAsDateObject(date) {
+  let day = new Date();
+  if (date) {
+    day.setFullYear(Number(date.year));
+    day.setMonth(Number(date.month) - 1);
+    day.setDate(Number(date.dayNumber));
+  }
+  day.setHours(0);
+  day.setMinutes(0);
+  day.setMilliseconds(0);
+  day.setSeconds(0);
+  return day;
+}
+
+export function getStringAsDateObject(dateString) {
+  let [dayNumber, month, year] = dateString.split("-");
+  let dateObject = getAsDateObject({
+    dayNumber,
+    month,
+    year
+  });
+  return dateObject;
 }
