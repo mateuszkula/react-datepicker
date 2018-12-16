@@ -21,14 +21,6 @@ class ReservationWidget extends Component {
       hoveringOverDate: "",
       selectedMonth: DateUtil.getCurrentMonthWithYear()
     };
-
-    this.onInputClick = this.onInputClick.bind(this);
-    this.showCalendar = this.showCalendar.bind(this);
-    this.previousMonth = this.previousMonth.bind(this);
-    this.nextMonth = this.nextMonth.bind(this);
-    this.generateDaysInMonthArray = this.generateDaysInMonthArray.bind(this);
-    this.onDateSelect = this.onDateSelect.bind(this);
-    this.hoveringOverDate = this.hoveringOverDate.bind(this);
   }
 
   hoveringOverDate(dayNumber) {
@@ -41,20 +33,10 @@ class ReservationWidget extends Component {
     });
   }
 
-  previousMonth() {
+  anotherMonth(action) {
     this.setState(prevState => {
       return {
-        selectedMonth: DateUtil.getAnotherMonth(
-          prevState.selectedMonth,
-          "previous"
-        )
-      };
-    });
-  }
-  nextMonth() {
-    this.setState(prevState => {
-      return {
-        selectedMonth: DateUtil.getAnotherMonth(prevState.selectedMonth, "next")
+        selectedMonth: DateUtil.getAnotherMonth(prevState.selectedMonth, action)
       };
     });
   }
@@ -120,7 +102,7 @@ class ReservationWidget extends Component {
     if (selectedAsDate < date && date <= hoveringOverDate) {
       return "BETWEEN";
     }
-    if (hoveringOverDate <= date && date < checkin) {
+    if (hoveringOverDate <= date && date < selectedAsDate) {
       return "BETWEEN";
     }
   }
@@ -203,14 +185,18 @@ class ReservationWidget extends Component {
 
   showCalendar() {
     if (this.state.expanded !== "") {
-      const alignment = this.state.expanded === "checkin" ? "left" : "right";
+      const alignment = this.state.expanded === checkin ? "left" : "right";
       return (
         <Calendar
           alignment={alignment}
           month={this.state.selectedMonth}
           lastUpdate={this.props.lastUpdate}
-          previousMonth={this.previousMonth}
-          nextMonth={this.nextMonth}
+          previousMonth={() => {
+            this.anotherMonth("previous");
+          }}
+          nextMonth={() => {
+            this.anotherMonth("next");
+          }}
           daysInMonth={this.generateDaysInMonthArray()}
           firstDayOfMonth={DateUtil.getFirstDayOfMonth(
             this.state.selectedMonth
@@ -239,7 +225,7 @@ class ReservationWidget extends Component {
             >
               <DateInput
                 placeholder="Check In"
-                expanded={this.state.expanded === "checkin"}
+                expanded={this.state.expanded === checkin}
                 value={this.state.checkinDate}
               />
             </span>
@@ -251,7 +237,7 @@ class ReservationWidget extends Component {
             >
               <DateInput
                 placeholder="Check Out"
-                expanded={this.state.expanded === "checkout"}
+                expanded={this.state.expanded === checkout}
                 value={this.state.checkoutDate}
               />
             </span>
