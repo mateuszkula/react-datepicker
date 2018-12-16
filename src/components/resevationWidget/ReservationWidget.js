@@ -126,9 +126,6 @@ class ReservationWidget extends Component {
   }
 
   isDayBetweenSelectedDateAndHoover(dayNumber) {
-    const [month, year] = DateUtil.getMontWithYearAsNumbers(
-      this.state.selectedMonth
-    );
     if (this.state.checkinDate !== "" && this.state.checkoutDate === "") {
       return this.compareDatesBetweenSelectedAndHoover(
         this.state.checkinDate,
